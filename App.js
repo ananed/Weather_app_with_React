@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState} from "react";
+import React, { useState } from "react";
 
 const dateBuilder = (d) => {
   let months = [
@@ -37,7 +37,7 @@ const dateBuilder = (d) => {
 function App() {
   // defino mi constante de los datos
   const [weather, setWeather] = useState(null);
-  const [query, setQuery] = useState("Madrid");
+  const [query, setQuery] = useState("");
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${query}&units=metric&appid=6e7849af5ea991b87272b3a72ea28802`;
 
   //saco la fecha
@@ -54,23 +54,24 @@ function App() {
         <div className="search-box">
           <div>
             <input
+              className="busca"
               label="name"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
-            <button onClick={() => fetchWeather(url)}>Search</button>
+            <button className="botton" onClick={() => fetchWeather(url)}>Search</button>
           </div>
         </div>
         {weather && (
-          <div>
+          <div className="container">
             <div className="location-box">
+              <div className="date">{dateBuilder(new Date())}</div>
               <div className="location">
                 {weather.name}, {weather.sys.country}
               </div>
-              <div className="date">{dateBuilder(new Date())}</div>
             </div>
             <div className="weather-box">
-              <div className="temp">{weather.temp}</div>
+              <div className="temp">{weather.main.temp} ºC</div>
               <div className="weather">{weather.weather[0].main}</div>
             </div>
           </div>
